@@ -1,3 +1,4 @@
+// using dfs
 class Solution {
   public:
     bool isCycle(unordered_map<int, vector<int>>& adj, int u, vector<bool>& vis, vector<bool>& isPath){
@@ -35,5 +36,48 @@ class Solution {
             }
         }
         return false;
+    }
+};
+
+
+//using bfs
+class Solution {
+  public:
+    bool isCyclic(int V, vector<vector<int>> &edges) {
+        // code here
+        unordered_map<int, vector<int>> adj;
+        vector<int> inDegree(V, 0);
+        
+        for(auto& edge : edges){
+            int u = edge[0];
+            int v = edge[1];
+            
+            adj[u].push_back(v);
+            inDegree[v]++;
+        }
+        
+        queue<int> q;
+        for(int i = 0; i < V; i++){
+            if(inDegree[i] == 0){
+                q.push(i);
+            }
+        }
+        
+        int count = 0;
+        
+        while(!q.empty()){
+            int u = q.front();
+            q.pop();
+            count++;
+            
+            for(int v : adj[u]){
+                inDegree[v]--;
+                if(inDegree[v] == 0){
+                    q.push(v);
+                }
+            }
+        }
+        
+        return (count != V);
     }
 };
