@@ -1,3 +1,4 @@
+
 class Solution {
   public:
     vector<pair<int, int>> direction = {{1, 0}, {0, -1}, {0, 1}, {-1, 0}};
